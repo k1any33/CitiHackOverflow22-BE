@@ -6,7 +6,6 @@ import { AuthModule } from './modules/auth/auth.module'
 import configuration from './config/configuration'
 import { LoggingModule } from './logger.module'
 import { WalletModule } from './modules/wallet/wallet.module'
-import { ProductsModule } from './products/products.module';
 
 @Module({
   imports: [
@@ -25,7 +24,6 @@ import { ProductsModule } from './products/products.module';
     AuthModule,
     LoggingModule,
     WalletModule,
-    ProductsModule,
   ],
   controllers: [],
   providers: [ConfigService],
