@@ -8,6 +8,9 @@ import { ValidationPipe } from '@nestjs/common'
 async function bootstrap() {
   const config = configuration()
   const app = await NestFactory.create(AppModule)
+  app.enableCors({
+    origin: 'citi-hackoverflow22-lmgowbvrx-auyongtingting.vercel.app',
+  })
 
   app.setGlobalPrefix('api/v1')
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }))
