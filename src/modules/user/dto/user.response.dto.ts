@@ -11,8 +11,8 @@ export class UserResponseDto {
   @ApiProperty({ type: String, example: 'John' })
   readonly email?: string
 
-  @ApiProperty({ type: String, example: 'Wealth Management Course' })
-  readonly currentCourse?: string
+  @ApiProperty({ type: String, example: v4() })
+  readonly currentCourseId?: string
 
   @ApiProperty({ type: String, example: 1 })
   readonly currentProgress?: number

@@ -17,7 +17,7 @@ export class User {
   email?: string
 
   @Prop({ required: false, type: String })
-  currentCourse?: string
+  currentCourseId?: string
 
   @Prop({ required: false, type: Number })
   currentProgress?: number

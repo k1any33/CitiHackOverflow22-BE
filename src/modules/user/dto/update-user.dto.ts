@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger'
 import { IsNumber, IsOptional, IsString } from 'class-validator'
+import { v4 } from 'uuid'
 
 export class UpdateUserDto {
   @IsOptional()
@@ -9,8 +10,8 @@ export class UpdateUserDto {
 
   @IsOptional()
   @IsString()
-  @ApiProperty({ type: String, example: 'Wealth Management Course' })
-  readonly currentCourse?: string
+  @ApiProperty({ type: String, example: v4()})
+  readonly currentCourseId?: string
 
   @IsOptional()
   @IsNumber()
