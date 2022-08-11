@@ -9,7 +9,7 @@ async function bootstrap() {
   const config = configuration()
   const app = await NestFactory.create(AppModule)
   app.enableCors({
-    origin: 'citi-hackoverflow22-lmgowbvrx-auyongtingting.vercel.app',
+    origin: ['citi-hackoverflow22-lmgowbvrx-auyongtingting.vercel.app', 'http://localhost:3000'],
   })
 
   app.setGlobalPrefix('api/v1')
