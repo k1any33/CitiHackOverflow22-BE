@@ -1,11 +1,27 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, HttpStatus, Req, HttpException, Logger, Inject, LoggerService, InternalServerErrorException, Query } from '@nestjs/common';
-import {  ApiResponse, ApiTags } from '@nestjs/swagger';
-import { Public } from 'src/utils/public.decorator';
-import { CourseService } from './course.service';
-import { CourseFilterDto } from './dto/course-filter.dto';
-import { CourseResponseDto } from './dto/course.response.dto';
-import { CreateCourseDto } from './dto/create-course.dto';
-import { UpdateCourseDto } from './dto/update-course.dto';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  HttpStatus,
+  Req,
+  HttpException,
+  Logger,
+  Inject,
+  LoggerService,
+  InternalServerErrorException,
+  Query,
+} from '@nestjs/common'
+import { ApiResponse, ApiTags } from '@nestjs/swagger'
+import { Public } from 'src/utils/public.decorator'
+import { CourseService } from './course.service'
+import { CourseFilterDto } from './dto/course-filter.dto'
+import { CourseResponseDto } from './dto/course.response.dto'
+import { CreateCourseDto } from './dto/create-course.dto'
+import { UpdateCourseDto } from './dto/update-course.dto'
 
 @ApiTags('Course')
 @Controller('course')
@@ -36,17 +52,14 @@ export class CourseController {
   @Public()
   @Get()
   @ApiResponse({ status: HttpStatus.OK, type: [CourseResponseDto] })
-  async findAll(
-    @Query() filters: CourseFilterDto,
-  ): Promise<CourseResponseDto | HttpException> {
-    const result = await this.courseService.findAll(filters)
-      .catch(({ message }) => {
-        this.logger.error(`Error in getting course`, {
-          method: 'get',
-          errorMessage: message,
-        })
-        throw new InternalServerErrorException('Error in fetching courses')
+  async findAll(): Promise<CourseResponseDto | HttpException> {
+    const result = await this.courseService.findAll().catch(({ message }) => {
+      this.logger.error(`Error in getting course`, {
+        method: 'get',
+        errorMessage: message,
       })
+      throw new InternalServerErrorException('Error in fetching courses')
+    })
     return result.data
   }
 
@@ -61,7 +74,8 @@ export class CourseController {
     @Param('courseId') courseId: string,
     @Body() updateCourseDto: UpdateCourseDto,
   ): Promise<CourseResponseDto | HttpException> {
-    const result = await this.courseService.updateOne(courseId, updateCourseDto)
+    const result = await this.courseService
+      .updateOne(courseId, updateCourseDto)
       .catch(({ message }) => {
         this.logger.error(`Error in updating course of this id: ${courseId}`, {
           method: 'patch',
