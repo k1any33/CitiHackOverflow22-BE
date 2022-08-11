@@ -14,7 +14,13 @@ export class User {
   password: string
 
   @Prop({ required: false, type: String })
-  name?: string
+  email?: string
+
+  @Prop({ required: false, type: String })
+  currentCourse?: string
+
+  @Prop({ required: false, type: Number })
+  currentProgress?: number
 }
 
 export const UserSchema = SchemaFactory.createForClass(User)

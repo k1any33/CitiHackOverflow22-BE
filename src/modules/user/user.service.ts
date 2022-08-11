@@ -7,6 +7,23 @@ import { UpdateUserDto } from './dto/update-user.dto'
 export class UserService {
   constructor(private readonly userRepository: UserRepository) {}
 
+  async getOne(
+    userId: string,
+  ): Promise<UserResultSuccess | UserResultFailure> {
+    const userDocument = await this.userRepository.findOne(
+      userId,
+    )
+    if (!userDocument) {
+      return {
+        success: false,
+        statusCode: 400,
+        message: `User document of id: ${userId} not found`,
+      }
+    }
+
+    return { success: true, statusCode: 200, data: userDocument }
+  }
+
   async updateOne(
     userId: string,
     updateUserDto: UpdateUserDto,
