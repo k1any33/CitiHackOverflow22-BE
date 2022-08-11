@@ -19,8 +19,8 @@ export class CourseRepository {
     return this.courseModel.findOne({ courseId }).exec()
   }
 
-  findAll(filters: CourseFilterDto): Promise<Course[]> {
-    return this.courseModel.find(filters).exec()
+  findAll(): Promise<Course[]> {
+    return this.courseModel.find().exec()
   }
 
   updateOne(
