@@ -11,9 +11,4 @@ export class RegisterDto {
   @IsNotEmpty()
   @ApiProperty({ type: String, example: '12345678', required: true })
   readonly password: string
-
-  @IsOptional()
-  @IsString()
-  @ApiProperty({ type: String, example: 'John', required: false })
-  readonly name?: string
 }
