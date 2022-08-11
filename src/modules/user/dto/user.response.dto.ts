@@ -9,7 +9,13 @@ export class UserResponseDto {
   readonly username: string
 
   @ApiProperty({ type: String, example: 'John' })
-  readonly name?: string
+  readonly email?: string
+
+  @ApiProperty({ type: String, example: 'Wealth Management Course' })
+  readonly currentCourse?: string
+
+  @ApiProperty({ type: String, example: 1 })
+  readonly currentProgress?: number
 
   @ApiProperty({ type: Date, example: '2022-08-10T07:39:28.589Z' })
   readonly createdAt?: Date
