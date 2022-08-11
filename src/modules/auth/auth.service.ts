@@ -32,7 +32,6 @@ export class AuthService {
       username: registerDto.username,
       password: hashedPassword,
       userId: v4(),
-      name: registerDto.name,
     })
 
     const jwtPayload: JwtPayload = { sub: user.userId }
