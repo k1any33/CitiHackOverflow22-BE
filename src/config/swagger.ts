@@ -3,11 +3,10 @@ import { DocumentBuilder } from '@nestjs/swagger'
 export const swaggerConfig = () => {
   return (
     new DocumentBuilder()
-      .setTitle('Starter Project Example')
-      .setDescription('Nest js starter project ')
+      .setTitle('Citibank Hackathon 2022')
+      .setDescription('Api documentation for citihack')
       .setVersion('1.0')
       .addTag('')
-      // .addCookieAuth()
       .addBearerAuth()
       .build()
   )
