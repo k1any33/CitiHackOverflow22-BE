@@ -50,6 +50,7 @@ export class CourseController {
     return result.data
   }
 
+  @Public()
   @Patch(':courseId')
   @ApiResponse({ status: HttpStatus.OK, type: CourseResponseDto })
   @ApiResponse({
