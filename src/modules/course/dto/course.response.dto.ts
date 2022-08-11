@@ -14,9 +14,6 @@ export class CourseResponseDto {
   })
   courseDescription: string
 
-  @ApiProperty({ type: String, example: 'Danny Smith'})
-  courseInstructor: string
-
   @ApiProperty({ type: Number, example: 1 })
   courseTier: number
 

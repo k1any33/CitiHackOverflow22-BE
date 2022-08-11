@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { InjectModel } from '@nestjs/mongoose'
 import { Model } from 'mongoose'
+import { CourseFilterDto } from './dto/course-filter.dto'
 import { UpdateCourseDto } from './dto/update-course.dto'
 import { Course, CourseDocument } from './entities/course.entity'
 
@@ -16,6 +17,10 @@ export class CourseRepository {
 
   findOne(courseId: string): Promise<Course | null> {
     return this.courseModel.findOne({ courseId }).exec()
+  }
+
+  findAll(filters: CourseFilterDto): Promise<Course[]> {
+    return this.courseModel.find(filters).exec()
   }
 
   updateOne(

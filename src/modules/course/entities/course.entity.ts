@@ -18,9 +18,6 @@ export class Course {
   @Prop({ required: true, type: String })
   courseDescription: string
 
-  @Prop({ required: true, type: String })
-  courseInstructor: string
-
   @Prop({ required: true, type: Number })
   courseTier: number
 }

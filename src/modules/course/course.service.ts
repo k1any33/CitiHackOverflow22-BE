@@ -1,17 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { v4 } from 'uuid';
 import { CourseRepository } from './course.repository';
+import { CourseFilterDto } from './dto/course-filter.dto';
 import { CreateCourseDto } from './dto/create-course.dto';
 import { UpdateCourseDto } from './dto/update-course.dto';
 import { Course } from './entities/course.entity';
-import { CourseResultSuccess } from './types';
+import { CourseResultFailure, CourseResultSuccess } from './types';
 
 @Injectable()
 export class CourseService {
   constructor(private readonly courseRepository: CourseRepository) {}
 
   async create(
-    userId: string,
     createCourseDto: CreateCourseDto,
   ): Promise<CourseResultSuccess> {
     const courseEntity: Course = { ...createCourseDto, courseId: v4() }
@@ -20,69 +20,44 @@ export class CourseService {
     return { success: true, data: courseDocument }
   }
 
-  async findOne(
-    courseId: string
-  ): Promise<CourseResultSuccess | CourseResultFailure> {
-    const courseDocument = await this.courseRepository.findOne(courseId)
+  async findAll(
+    fitlers: CourseFilterDto
+  ): Promise<CourseResultSuccess> {
+    const courseDocumentArray = await this.courseRepository.findAll(fitlers)
 
-    if (!courseDocument) return this.walletNotFoundResponse(courseId)
-
-
-    return { success: true, data: courseDocument }
+    return { success: true, data: courseDocumentArray }
   }
 
-  async update(
-    userId: string,
-    walletId: string,
-    updateWalletDto: UpdateWalletDto,
+  async updateOne(
+    courseId: string,
+    updateCourseDto: UpdateCourseDto,
   ): Promise<CourseResultSuccess | CourseResultFailure> {
-    const courseDocument = await this.courseRepository.findOne(walletId)
-
-    if (!courseDocument) return this.walletNotFoundResponse(walletId)
-
-    if (courseDocument.userId !== userId) return this.unauthorizedAccess()
-
-    const newcourseDocument = await this.courseRepository.update(
-      walletId,
-      updateWalletDto,
+    const courseDocument = await this.courseRepository.updateOne(
+      courseId,
+      updateCourseDto,
     )
     return {
       success: true,
-      data: newcourseDocument,
+      data: courseDocument,
     }
   }
 
   async deleteOne(
-    userId: string,
-    walletId: string,
+    courseId: string,
   ): Promise<CourseResultSuccess | CourseResultFailure> {
-    const courseDocument = await this.courseRepository.findOne(walletId)
+    const courseDocument = await this.courseRepository.findOne(courseId)
 
-    if (!courseDocument) return this.walletNotFoundResponse(walletId)
+    if (!courseDocument) {return {
+      success: false,
+      statusCode: 400,
+      message: `Course of this id: ${courseId} is not found`,
+    }}
 
-    if (courseDocument.userId !== userId) return this.unauthorizedAccess()
-
-    await this.courseRepository.deleteOne(walletId)
+    await this.courseRepository.deleteOne(courseId)
 
     return {
       success: true,
       data: null,
-    }
-  }
-
-  private walletNotFoundResponse(walletId: string): CourseResultFailure {
-    return {
-      success: false,
-      statusCode: 400,
-      message: `Wallet of this id: ${walletId} is not found`,
-    }
-  }
-
-  private unauthorizedAccess(): CourseResultFailure {
-    return {
-      success: false,
-      statusCode: 403,
-      message: 'You are not allowed to view this resource',
     }
   }
 }
