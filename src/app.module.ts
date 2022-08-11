@@ -5,7 +5,6 @@ import { UserModule } from './modules/user/user.module'
 import { AuthModule } from './modules/auth/auth.module'
 import configuration from './config/configuration'
 import { LoggingModule } from './logger.module'
-import { WalletModule } from './modules/wallet/wallet.module'
 import { CourseModule } from './modules/course/course.module';
 
 @Module({
@@ -24,7 +23,6 @@ import { CourseModule } from './modules/course/course.module';
     UserModule,
     AuthModule,
     LoggingModule,
-    WalletModule,
     CourseModule,
   ],
   controllers: [],
